@@ -13,15 +13,24 @@ type TodoEvents = {
 
 const TodoOutput = ({ value, isDone, check, del }: TodoProps & TodoEvents) => {
   return (
-    <div className="flex justify-between">
+    <div className="flex items-center justify-between p-4 mb-4 bg-gray-100 rounded-lg shadow-md hover:bg-gray-200 transition-all">
       <FaRegCircleCheck
-        className={isDone ? "text-green-300" : "text-gray-200"}
+        className={`text-2xl cursor-pointer ${
+          isDone ? "text-green-500" : "text-gray-300"
+        }`}
         onClick={check}
       />
-      <span className={isDone ? "line-through text-gray-200 " : ""}>
+      <span
+        className={`ml-4 text-lg ${
+          isDone ? "line-through text-gray-400" : "text-gray-700"
+        }`}
+      >
         {value}
       </span>
-      <IoCloseCircleOutline onClick={del} />
+      <IoCloseCircleOutline
+        className="text-2xl text-red-500 cursor-pointer hover:text-red-600"
+        onClick={del}
+      />
     </div>
   );
 };

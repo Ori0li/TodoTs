@@ -1,39 +1,45 @@
 import { useState } from "react";
 import TodoInput from "./components/TodoInput";
-import TodoOutput, { TodoProps } from "./components/TodoOutput";
+import TodoOutput from "./components/TodoOutput";
+import { todoStore } from "./Stores/store";
+import TodoUser from "./components/TodoUset";
 
 const Todo = () => {
-  const [todolist, setTodolist] = useState<TodoProps[]>([]);
+  const { todolist, addTodo, checkTodo, delTodo } = todoStore();
+  const [inputValue, setInputValue] = useState<string>("");
 
-  const addTodo = (v: string) => {
-    setTodolist((prev) => {
-      const newTodoArr = [...prev];
-      newTodoArr.push({ value: v, isDone: false });
-      return newTodoArr;
-    });
-  };
-
-  const checkTodo = (i: number) => {
-    setTodolist((prev) => {
-      const newTodoArr = [...prev];
-      newTodoArr[i].isDone = !newTodoArr[i].isDone;
-      return newTodoArr;
-    });
-  };
-
-  const delTodo = (i: number) => {
-    setTodolist((prev) => {
-      const newTodoArr = [...prev].filter((x, y) => y != i);
-      return newTodoArr;
-    });
+  const clearInput = () => {
+    if (inputValue) {
+      addTodo(inputValue);
+      setInputValue("");
+    }
   };
 
   return (
-    <div className="w-96">
-      <TodoInput addList={addTodo} />
-      {todolist.map((v, i) => (
-        <TodoOutput {...v} check={() => checkTodo(i)} del={() => delTodo(i)} />
-      ))}
+    <div className="flex flex-col items-center w-full max-w-xl mx-auto mt-10">
+      {/* Todo User Section */}
+      <TodoUser />
+
+      {/* Input Section */}
+      <div className="w-full p-4 mt-4 bg-gray-100 rounded-lg shadow-md">
+        <TodoInput
+          value={inputValue}
+          setValue={setInputValue}
+          addList={clearInput}
+        />
+      </div>
+
+      {/* Todo List */}
+      <div className="w-full mt-6 space-y-4 overflow-y-auto max-h-[350px]">
+        {todolist.map((todo, index) => (
+          <TodoOutput
+            key={index}
+            {...todo}
+            check={() => checkTodo(index)}
+            del={() => delTodo(index)}
+          />
+        ))}
+      </div>
     </div>
   );
 };
