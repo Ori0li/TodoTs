@@ -17,7 +17,7 @@ function App() {
         </article>
 
         {/* Todo Section */}
-        <article className="bg-white p-6 h-full rounded-lg shadow-lg flex flex-col items-center justify-between sm:w-2/3">
+        <article className="bg-white p-6 h-[800px] rounded-lg shadow-lg flex flex-col items-center justify-between sm:w-2/3">
           <div className="w-full flex flex-col overflow-hidden">
             <div className="w-full flex-1">
               <Todo />

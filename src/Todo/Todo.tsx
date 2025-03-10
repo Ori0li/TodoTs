@@ -30,7 +30,7 @@ const Todo = () => {
       </div>
 
       {/* Todo List */}
-      <div className="w-full mt-6 space-y-4 overflow-y-auto max-h-[350px]">
+      <div className="w-full mt-6 space-y-4 overflow-y-auto max-h-[500px]">
         {todolist.map((todo, index) => (
           <TodoOutput
             key={index}
